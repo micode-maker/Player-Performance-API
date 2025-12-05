@@ -34,11 +34,11 @@ A REST API for managing athlete profiles, match performance data, training sessi
 
 ### Players
 
-- `GET /api/players` - Get all campaigns
-- `GET /api/players/:id` - Get campaign by ID
-- `POST /api/players` - Create campaign
-- `PUT /api/players/:id` - Update campaign
-- `DELETE /api/players/:id` - Delete campaign
+- `GET /api/players` - Get all players
+- `GET /api/players/:id` - Get players by ID
+- `POST /api/players` - Create player
+- `PUT /api/players/:id` - Update player
+- `DELETE /api/players/:id` - Delete player
 
 ### Performance Stats
 
@@ -51,10 +51,10 @@ A REST API for managing athlete profiles, match performance data, training sessi
 - `POST /api/training-sessions` - Create training session
 
 
-### Coach Evalutaions
+### Coach Evaluations
 
-- `GET /api/evalutions/:playerId` - Get evalutaions for player
-- `POST /api/evaluations` - Create evalutaion
+- `GET /api/evalutions/:playerId` - Get evaluations for player
+- `POST /api/evaluations` - Create evaluation
 
 ## Project Structure
 
