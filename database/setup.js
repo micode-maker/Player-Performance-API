@@ -6,11 +6,21 @@ const path = require('path');
 const dbName = process.env.DB_NAME || 'player_performance.db';
 const storagePath = path.resolve(__dirname, dbName);
 
-const db = new Sequelize({
-  dialect: 'sqlite',
-  storage: storagePath,
-  logging: false
-});
+let db;
+
+if (process.env.NODE_ENV === "test") {
+  // In-memory SQLite for tests
+  db = new Sequelize("sqlite::memory:", {
+    logging: false,
+  });
+} else {
+  db = new Sequelize({
+    dialect: "sqlite",
+    storage: storagePath,
+    logging: false,
+  });
+}
+
 
 console.log(`Using SQLite database at: ${storagePath}`);
 
@@ -33,12 +43,14 @@ const User = db.define('User', {
     allowNull: false
   },
   role: {
-    type: DataTypes.ENUM('coach', 'player'),
-    allowNull: false,
-    defaultValue: 'player'
+        type: DataTypes.STRING,
+        allowNull: false,
+        defaultValue: 'player',
+        validate: {
+            isIn: [['player', 'coach']]
+        }
   }
 });
-
 
 // PLAYER
 // Represents an athlete profile.
@@ -54,7 +66,7 @@ const Player = db.define('Player', {
 });
 
 
-// === PERFORMANCE STATS ===
+// PERFORMANCE STATS
 const PerformanceStat = db.define('PerformanceStat', {
   goals: {
     type: DataTypes.INTEGER,
